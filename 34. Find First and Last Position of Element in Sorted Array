@@ -1,0 +1,36 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        low = 0
+        high = len(nums)-1
+
+        def binarySearch(nums,target,low,high):
+            while low<=high:
+                mid=(low+high)//2
+                if target==nums[mid]:
+                    return mid
+                elif target>nums[mid]:
+                    low = mid+1
+                else:
+                    high = mid-1
+            return -1
+        
+        if len(nums)!=0:
+            result = binarySearch(nums,target,low,high)
+            if result == -1:
+                return [-1,-1]
+            else:
+                i = result
+                j = result
+                while i<=len(nums)-1:
+                    if nums[i]==target:
+                        i+=1
+                    elif nums[i]!=target:
+                        break
+                while j>=0:
+                    if nums[j]==target:
+                        j-=1
+                    elif nums[j]!=target:
+                        break
+                return [j+1,i-1]
+        else:
+            return [-1,-1]
