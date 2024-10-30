@@ -1,0 +1,32 @@
+class Solution:
+    def maximumCount(self, nums: List[int]) -> int:
+        low = 0
+        high = len(nums) - 1
+
+        def binarySearchNeg(arr, low, high):
+            while low <= high:
+                mid = (low + high) // 2
+                if arr[mid] < 0:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            negarr = arr[:low]
+            return negarr
+
+        def binarySearchPos(arr, low, high):
+            while low <= high:
+                mid = (low + high) // 2
+                if arr[mid] > 0:
+                    high = mid - 1
+                else:
+                    low = mid + 1
+            posarr = arr[high + 1:]
+            return posarr
+
+        if len(nums) == 0:
+            return 0 
+        else:
+            pos_arr = binarySearchNeg(nums, low, high)
+            neg_arr = binarySearchPos(nums, low, high)
+            
+            return max(len(pos_arr), len(neg_arr))
