@@ -1,0 +1,21 @@
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        low = 0
+        high = len(letters)-1
+
+        def binarySearch(letters,target,low,high):
+            while low < high:
+                mid = (low+high)//2
+                if target > letters[mid]:
+                    low = mid + 1
+                else:
+                    high = mid
+            return low
+
+        if target >= letters[high]:
+            return letters[low]
+        else:
+            indexx = binarySearch(letters,target,low,high)
+            while target == letters[indexx]:
+                indexx+=1
+            return letters[indexx]
