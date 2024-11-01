@@ -1,0 +1,23 @@
+class Solution:
+    def countNegatives(self, grid: List[List[int]]) -> int:
+
+        def binarySearchPivot(grid,low,high):
+            while low<=high:
+                mid = (low+high)//2
+                if grid[mid]>=0:
+                    low = mid + 1
+                elif grid[mid]<0 and high != mid:
+                    high = mid
+                else:
+                    break
+            return low
+        
+        sum = 0
+
+        for i in range(len(grid)):
+            low = 0
+            high = len(grid[i])-1
+            result = binarySearchPivot(grid[i],low,high)
+            sum = sum+(high-result)+1
+        
+        return sum
